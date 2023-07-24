@@ -17,5 +17,7 @@ END
 # Update packages list
 apt-get update -y
 
+# Remove old Z-Way
+apt-get remove z-way-server
 # Install Z-Way
 apt-get install -y z-way4wb

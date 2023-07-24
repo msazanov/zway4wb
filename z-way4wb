@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Check for distro
+distro=`cat /etc/os-release | grep VERSION_CODENAME | awk -F"=" '{print $2}'`
+
+# Add Z-Wave.Me repository
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5b2f88a91611e683
+echo "deb https://repo.z-wave.me/z-way/raspbian $distro main" > /etc/apt/sources.list.d/z-wave-me.list
+
+# Force to prefer Z-Wave.Me repositroy
+cat > /etc/apt/preferences.d/z-wave-me-repo-priority <<END
+Package: *
+Pin: release o=Z-Wave.Me Z-Way
+Pin-Priority: 990
+END
+
+# Update packages list
+apt-get update -y
+
+# Install Z-Way
+apt-get install -y z-way4wb

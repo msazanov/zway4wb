@@ -3,8 +3,12 @@
 # Check for distro
 distro=`cat /etc/os-release | grep VERSION_CODENAME | awk -F"=" '{print $2}'`
 
+# install GPG
+apt-get install gpg curl
+
 # Add Z-Wave.Me repository
-apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5b2f88a91611e683
+# apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 5b2f88a91611e683 ### NOT working on bullseye
+curl -sL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x5B2F88A91611E683' | gpg --dearmor -o /etc/apt/trusted.gpg.d/z-wave-me.gpg
 echo "deb https://repo.z-wave.me/z-way/raspbian $distro main" > /etc/apt/sources.list.d/z-wave-me.list
 
 # Force to prefer Z-Wave.Me repositroy

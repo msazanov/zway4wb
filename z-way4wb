@@ -3,6 +3,9 @@
 # Check for distro
 distro=`cat /etc/os-release | grep VERSION_CODENAME | awk -F"=" '{print $2}'`
 
+# Update packages list
+apt-get update -y
+
 # install GPG
 apt-get install gpg curl
 
